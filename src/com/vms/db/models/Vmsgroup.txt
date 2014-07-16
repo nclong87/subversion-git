@@ -1,0 +1,50 @@
+package com.vms.db.models;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.math.BigDecimal;
+
+
+/**
+ * The persistent class for the VMSGROUP database table.
+ * 
+ */
+@Entity
+public class Vmsgroup implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private String id;
+
+	private Integer active;
+
+	private String namegroup;
+
+    public Vmsgroup() {
+    }
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public Integer getActive() {
+		return this.active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
+	public String getNamegroup() {
+		return this.namegroup;
+	}
+
+	public void setNamegroup(String namegroup) {
+		this.namegroup = namegroup;
+	}
+
+}

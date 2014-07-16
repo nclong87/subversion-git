@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xsi:schemaLocation="
+    http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+    http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
+
+    <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />  
+    <bean id="entityManagerFactory"
+        class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource" />
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="database" value="ORACLE" />
+                <property name="showSql" value="true" />    
+            </bean>
+        </property>            
+    </bean>
+	 
+	<!-- =============MySQL============= -->
+	<!--
+    <bean id="dataSource"
+        class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost/quickstart?characterEncoding=UTF-8" />
+        <property name="username" value="root" />
+        <property name="password" value="123456" />
+    </bean>
+	-->
+	<!-- =============Oracle============= -->	
+    <!-- >bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+        <property name="url" value="jdbc:oracle:thin:@192.168.1.105:1521:TEST" />
+        <property name="username" value="TEST" />
+        <property name="password" value="123456" />       
+    </bean -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="resourceRef" value="true"/>
+		<property name="jndiName" value="java:ORACLE_VMS" />
+	</bean>
+
+    <bean id="transactionManager"
+        class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="entityManagerFactory" />
+    </bean>
+    <tx:annotation-driven transaction-manager="transactionManager" />
+	
+	<bean id="testService" class="com.vms.db.impl.TestServiceImpl" />
+	<bean id="userService" class="com.vms.db.impl.UserServiceImpl" />
+	<bean id="menuService" class="com.vms.db.impl.MenuServiceImpl" />
+	<bean id="phongbanService" class="com.vms.db.impl.PhongbanServiceImpl" />
+	<bean id="bophanService" class="com.vms.db.impl.BophanServiceImpl" />
+	<bean id="nhanvienService" class="com.vms.db.impl.NhanvienServiceImpl" />
+	<bean id="rootMenuService" class="com.vms.db.impl.RootMenuServiceImpl" />
+	<bean id="eventsService" class="com.vms.db.impl.EventsServiceImpl" />
+	<!-- Index Action -->
+	<bean id="testAction" scope="prototype" class="com.vms.web.actions.TestAction">
+        <constructor-arg ref="testService" />
+        <constructor-arg ref="userService" />
+        <constructor-arg ref="menuService" />
+    </bean>
+	<bean id="indexAction" scope="prototype" class="com.vms.web.actions.IndexAction">
+    </bean>
+	<bean id="loginAction" scope="prototype" class="com.vms.web.actions.LoginAction">
+		<constructor-arg ref="userService" />
+    </bean>
+	<bean id="userAction" scope="prototype" class="com.vms.web.actions.UserAction">
+		<constructor-arg ref="userService" />
+		<constructor-arg ref="phongbanService" />
+    </bean>
+	<!-- Menu Action -->
+	<bean id="menuAction" scope="prototype" class="com.vms.web.actions.MenuAction">
+        <constructor-arg ref="menuService" />
+		<constructor-arg ref="rootMenuService" />
+    </bean>
+	<bean id="searchAction" scope="prototype" class="com.vms.web.actions.SearchAction">
+		<constructor-arg ref="phongbanService" />
+		<constructor-arg ref="bophanService" />
+		<constructor-arg ref="nhanvienService" />
+		<constructor-arg ref="menuService" />
+    </bean>
+	<bean id="permissionAction" scope="prototype" class="com.vms.web.actions.PermissionAction">
+		<constructor-arg ref="menuService" />
+		<constructor-arg ref="userService" />
+    </bean>
+	<bean id="settingsAction" scope="prototype" class="com.vms.web.actions.SettingsAction">
+		<constructor-arg ref="userService" />
+    </bean>
+	<bean id="calendarAction" scope="prototype" class="com.vms.web.actions.CalendarAction">
+    </bean>
+	<bean id="eventAction" scope="prototype" class="com.vms.web.actions.EventAction">
+		<constructor-arg ref="userService" />
+		<constructor-arg ref="eventsService" />
+    </bean>
+	<bean id="ajaxAction" scope="prototype" class="com.vms.web.actions.AjaxAction">
+		<constructor-arg ref="eventsService" />
+		<constructor-arg ref="nhanvienService" />
+    </bean>
+</beans>
+

@@ -1,0 +1,7 @@
+ - Để đơn giản chương trình, đề xuất bên KH nén lại file scan rồi up lên, như vậy mỗi đề xuất, biên bản bàn giao, phụ lục... chỉ có 1 file nén đính kèm
+ - Phần tìm kiếm nên tách ra 1 khung riêng, ko nên để chung với form nhập (để sau này KH yêu cầu thêm 1 tiêu chí tìm kiếm nào đó mà ko có trên form nhập hoặc tìm kiếm trong khoảng thì mình hỗ trợ đc)
+ - Xuất bảng đối soát cước để từ ngày - đến ngày 
+ - Tách phần quản lý phụ lục ra làm : Thêm mới phụ lục và tra cứu phụ lục (trong tra cứu có nút sửa, khi nhấn vào thì nhảy qua trang thêm mới phụ lục để sửa lại phục lục) (Hiện tại để chung thì sẽ có 2 danh sách rất khó thao tác)
+ - Phần sự cố chỉ nên để 1 nút tìm kiếm tuyến kênh, khi nhấn vào thì bung ra cửa sổ tìm kiếm tuyến kênh để chọn, chọn xong thì hiển thị thông tin điểm đầu, điểm cuối, giao tiếp của tuyến kênh đó, ở dưới là khung nhập thông tin sự cố
+ - Tính giá trị phụ lục : công thức để combobox
+ - Thiếu phần hệ thống chức năng.

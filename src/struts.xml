@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.devMode" value="true" />
+    <constant name="struts.i18n.encoding" value="UTF-8"/> 
+    <constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.multipart.maxSize" value="5597152" />
+	<package name="default" extends="struts-default">
+		<result-types>
+		    <result-type name="json" class="com.googlecode.jsonplugin.JSONResult" />
+		</result-types>
+		<global-results>
+			<result name="login" type="redirect">/jsp/login.jsp</result>
+			<result name="END_SESSION" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+	   </global-results>
+	   
+	</package>
+	<package name="admin" extends="default" namespace="/admin">
+		<action name="test" class="testAction" method="test">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+   </package>  	
+   <package name="index" extends="default" namespace="/index">
+		<action name="index" class="indexAction">
+       		<result name="success">/jsp/index.jsp</result>
+			<result name="LOGINPAGE">/jsp/login.jsp</result>
+		</action>
+   </package>
+	<package name="login" extends="default" namespace="/login">
+		<action name="doLogin" class="loginAction" method="doLogin">
+			<result name="success" type="redirect">
+				<param name="actionName">index</param>
+				<param name="namespace">/calendar</param>
+			</result>
+			<result name="error">/jsp/login.jsp</result>
+		</action>
+		<action name="doLogout" class="loginAction" method="doLogout">
+       		<result name="success">/jsp/login.jsp</result>
+		</action>
+	</package>
+	<package name="user" extends="default" namespace="/user">
+		<action name="index" class="userAction">
+       		<result name="success">/jsp/user/index.jsp</result>
+		</action>
+		<action name="ajLoadAccounts" class="userAction" method="ajLoadAccounts">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="ajSaveAccount" class="userAction" method="ajSaveAccount">
+       		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="ajLockAccount" class="userAction" method="ajLockAccount">
+       		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+	<package name="menu" extends="default" namespace="/menu">
+		<action name="index" class="menuAction">
+       		<result name="success">/jsp/menu/index.jsp</result>
+		</action>
+		<action name="ajLoadMenu" class="menuAction" method="ajLoadMenu">
+       		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="ajSaveMenu" class="menuAction" method="ajSaveMenu">
+      		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+	<package name="search" extends="default" namespace="/search">
+		<action name="index" class="searchAction">
+       		<result name="search_user_1">/jsp/search/search_user_1.jsp</result>
+			<result name="search_user_2">/jsp/search/search_user_2.jsp</result>
+		</action>
+		<action name="ajListBoPhan" class="searchAction" method="ajListBoPhan">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="ajListNhanvienByBophan" class="searchAction" method="ajListNhanvienByBophan">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="ajSearchMenu" class="searchAction" method="ajSearchMenu">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>
+	<package name="permission" extends="default" namespace="/permission">
+		<action name="index" class="permissionAction">
+       		<result name="success">/jsp/permission/user.jsp</result>
+		</action>
+		<action name="saveUserMenu" class="permissionAction" method="saveUserMenu">
+      		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+	<package name="settings" extends="default" namespace="/settings">
+		<action name="index" class="settingsAction">
+       		<result name="success">/jsp/settings/index.jsp</result>
+		</action>
+		<action name="ajChangePassword" class="settingsAction" method="ajChangePassword">
+      		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+	<package name="calendar" extends="default" namespace="/calendar">
+		<action name="index" class="calendarAction">
+       		<result name="success">/jsp/calendar/index.jsp</result>
+		</action>
+	</package>
+	<package name="event" extends="default" namespace="/event">
+		<action name="addEvent" class="eventAction" method="addEvent">
+       		<result name="success">/jsp/calendar/event/add.jsp</result>
+		</action>
+		<action name="editEvent" class="eventAction" method="editEvent">
+       		<result name="success">/jsp/calendar/event/edit.jsp</result>
+		</action>
+		<action name="getEvents" class="eventAction" method="getEvents">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="saveEvent" class="eventAction" method="saveEvent">
+       		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="removeEvent" class="eventAction" method="removeEvent">
+       		<result name="success" type="stream">
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="myEvent" class="eventAction" method="myEvent">
+       		<result name="success">/jsp/calendar/event/myEvent.jsp</result>
+		</action>
+		<action name="ajMyEvent" class="eventAction" method="ajMyEvent">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+		<action name="searchEvent" class="eventAction" method="searchEvent">
+       		<result name="success">/jsp/calendar/event/searchEvent.jsp</result>
+		</action>
+		<action name="ajSearchEvent" class="eventAction" method="ajSearchEvent">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>
+	<package name="ajax" extends="default" namespace="/ajax">
+		<action name="getNhanvienByEvent" class="ajaxAction" method="getNhanvienByEvent">
+      		<result  name="success" type="json">
+			   <param name="root">jsonData</param>
+			 </result>
+		</action>
+	</package>
+</struts>

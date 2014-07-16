@@ -1,0 +1,19 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+    version="1.0">
+    <persistence-unit name="punit">
+    	<class>com.vms.db.models.Table1</class>
+    	<class>com.vms.db.models.Account</class>
+    	<class>com.vms.db.models.Menu</class>
+    	<class>com.vms.db.models.Rootmenu</class>
+    	<class>com.vms.db.models.UserMenu</class>
+    	<class>com.vms.db.models.Vmsgroup</class>
+    	<class>com.vms.db.models.Doitac</class>
+    	<class>com.vms.web.models.Bophan</class>
+    	<class>com.vms.web.models.Nhanvien</class>
+    	<class>com.vms.web.models.Phongban</class>
+    	<class>com.vms.db.models.Event</class>
+    	<class>com.vms.db.models.Loaisukien</class>
+    </persistence-unit>
+</persistence>
